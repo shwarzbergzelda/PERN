@@ -7,6 +7,15 @@ const router = express.Router();
 
 app.use(express.json());
 
+// Middleware
+app.use((req, res, next) => {
+    const timeStamp = new Date().toISOString();
+
+    console.log(`[${timeStamp}] ${req.method} ${req.url}`);
+
+    next();
+});
+
 let cars = [
     { id: 1, make: 'Toyota', model: 'Camry', year: 2022, price: 28000 },
     { id: 2, make: 'Tesla', model: 'Model S', year: 2023, price: 25000 },
@@ -83,5 +92,5 @@ router.delete('/:id', (req, res) => {
 app.use('/api/v1/cars', router);
 
 app.listen(port, () => {
-    console.log(`Server is running on port https://localhost:${port}`)
+    console.log(`Server is running at http://localhost:${port}`)
 });
